@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(button-control-led button-control-led.c )
+add_executable(button-control-led button-control-led.c src/leds_control.c src/button_control.c)
 
 pico_set_program_name(button-control-led "button-control-led")
 pico_set_program_version(button-control-led "0.1")
@@ -46,6 +46,7 @@ pico_enable_stdio_usb(button-control-led 1)
 
 # Add the standard library to the build
 target_link_libraries(button-control-led
+        hardware_timer
         pico_stdlib)
 
 # Add the standard include files to the build
