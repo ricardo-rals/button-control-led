@@ -1,83 +1,64 @@
-# LED Control Project with Raspberry Pi Pico  
 
-This project demonstrates how to control three LEDs (green, red, and blue) using a Raspberry Pi Pico. The system is triggered by a button, which starts a sequence of LED activation with a 3-second delay between each state. The button can only be pressed again after the sequence is completed.  
+# LED Control Project with Raspberry Pi Pico
 
-## Required Components  
+This project demonstrates how to control three LEDs (green, red, and blue) using a Raspberry Pi Pico. The system is triggered by a button, which starts a sequence of LED activation with a 3-second delay between each state. The button can only be pressed again after the sequence is completed.
 
-- Raspberry Pi Pico  
-- 3 LEDs (green, red, and blue)  
-- 3 resistors (330 Ω)  
-- 1 push button  
-- Jumpers and a breadboard  
+## Features
+- The LED sequence starts when the button is pressed.
+- The sequence follows the order:
+  1. All LEDs turn on.
+  2. After 3 seconds, two LEDs turn off.
+  3. After another 3 seconds, only one LED remains on.
+  4. After another 3 seconds, all LEDs turn off.
+- The button is disabled until the sequence completes.
+- A debounce mechanism prevents false button presses.
 
-## Wiring Diagram  
+## Hardware Requirements
+- Raspberry Pi Pico
+- Three individual LEDs (Green, Red, Blue) connected to GPIOs
+- One push button connected to GPIO 5
+- Three 330 Ω resistors for LEDs
+- Breadboard and jumper wires
 
-Connect the components as follows:  
+## Software Requirements
+- Raspberry Pi Pico SDK
+- CMake
+- GCC ARM Toolchain
+- Visual Studio Code (optional, for development)
 
-- **LEDs**:  
-  - Green LED: GPIO 13  
-  - Red LED: GPIO 12  
-  - Blue LED: GPIO 11  
-  - The positive terminal (anode) of each LED should be connected to the corresponding GPIO.  
-  - The negative terminal (cathode) of each LED should be connected to a 330 Ω resistor, which is then connected to GND.  
+## Code Structure
+```
+project_root/
+├── src/
+│   ├── leds_control.c
+│   ├── button_control.c
+│
+├── includes/
+│   ├── leds_control.h
+│   ├── button_control.h
+├── button-control-led.c
+└── CMakeLists.txt
+```
 
-- **Button**:  
-  - One terminal of the button is connected to GPIO 5.  
-  - The other terminal of the button is connected to GND.  
-  - Use an internal pull-up resistor on GPIO 5.  
+## Setup and Simulation in Wokwi or Visual Studio Code
+### Wokwi
+1. Open [Wokwi](https://wokwi.com/) in your browser.
+2. Create a new RP2040 project.
+3. Upload the source files (`main.c`, `leds.c`, `button.c`, and headers) to the Wokwi environment.
+4. Configure the circuit with LEDs and a button connected to appropriate GPIO pins.
+5. Use the built-in serial monitor to observe the LED sequence.
+6. Click "Start Simulation" to run the experiment.
 
-## Source Code  
+### Visual Studio Code
+1. Install the necessary extensions for Pico development.
+2. Clone this repository and open it in VS Code.
+3. Configure and build the project using CMake and the GCC ARM Toolchain.
+4. Flash the compiled binary onto the RP2040 board.
+5. Use a serial monitor in VS Code to observe the LED sequence.
 
-The source code is written in C and uses the Raspberry Pi Pico SDK. It can be found in the `main.c` file in this repository.  
-
-### Code Features  
-
-1. **LED Activation**:  
-   - When the button is pressed, all three LEDs turn on.  
-   - After 3 seconds, two LEDs turn off, leaving only one LED on.  
-   - After another 3 seconds, only one LED remains on.  
-   - After another 3 seconds, all LEDs turn off.  
-
-2. **Button Debounce**:  
-   - The code includes a simple debounce logic to avoid false button readings.  
-
-3. **Activation Restriction**:  
-   - The button can only be pressed again after the LED sequence is completed.  
-
-## How to Compile and Upload the Code  
-
-### Prerequisites  
-
-- Visual Studio Code with the C/C++ extension.
-- Raspberry Pi Pico SDK.
-- CMake for building the project (if needed for other setups). 
-
-### Compilation Steps  
-
-1. Clone the project repository:  
-   ```bash  
-   https://github.com/ricardo-rals/button-control-led.git
-   cd button-control-led 
-   ```  
-
-2. Open the project in Visual Studio Code.
-
-3. Set up the Raspberry Pi Pico W SDK according to the [official documentation](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf).
-
-4. Follow the instructions in Visual Studio Code to build and upload the project to your Raspberry Pi Pico.
-
-## Testing the Project  
-
-1. After uploading the code to the Pico, connect the components according to the wiring diagram.  
-
-2. Press the button to start the LED sequence.  
-
-3. Observe the following sequence:  
-   - All LEDs turn on immediately after pressing the button.  
-   - After 3 seconds, two LEDs turn off.  
-   - After another 3 seconds, only one LED remains on.  
-   - After another 3 seconds, all LEDs turn off.  
-
-4. The button can only be pressed again after the sequence is completed.  
-
+## Running the Experiment
+- Press the button to start the LED sequence.
+- Observe the LEDs turn on and off in the defined pattern.
+- The button will be disabled until the sequence completes.
+- Monitor the serial output to track button presses and LED states.
 
