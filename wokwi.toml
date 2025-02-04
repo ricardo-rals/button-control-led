@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/button-control-led.uf2'
+elf = 'build/button-control-led.elf'
